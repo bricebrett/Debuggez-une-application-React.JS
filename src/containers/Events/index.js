@@ -13,16 +13,15 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = ((!type ? data?.events : data?.events) || []).filter(
-    (event, index) => {
-      if (
-        (currentPage - 1) * PER_PAGE <= index &&
-        PER_PAGE * currentPage > index
-      ) {
-        return true;
-      }
-      return false;
+  const filteredEvents = (data?.events || []).filter((event) => {
+    if (!type || event.type === type) {
+      return true;
     }
+    return false;
+  });
+  const paginatedEvents = filteredEvents.slice(
+    (currentPage - 1) * PER_PAGE,
+    currentPage * PER_PAGE
   );
   const changeType = (evtType) => {
     setCurrentPage(1);
@@ -43,7 +42,7 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+            {paginatedEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard

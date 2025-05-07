@@ -115,11 +115,13 @@ const Page = () => {
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
           <EventCard
-            imageSrc={last?.cover}
-            title={last?.title}
-            date={new Date(last?.date)}
+            imageSrc={
+              last?.cover || "../images/headway-F2KRf_QfCqw-unsplash.png"
+            }
+            title={last?.title || "Conférence #productCON"}
+            date={new Date(last?.date) || "Aout"}
             small
-            label="boom"
+            label={last?.type || "Conférence"}
           />
         </div>
         <div className="col contact">
