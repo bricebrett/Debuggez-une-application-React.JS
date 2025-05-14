@@ -24,21 +24,38 @@ describe("When Form is created", () => {
       await screen.findByText("Message envoyé !");
     });
   });
-
 });
 
-
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-  })
-  it("a list a people is displayed", () => {
-    // to implement
-  })
-  it("a footer is displayed", () => {
-    // to implement
-  })
+  it("a list a people is displayed", async () => {
+    render(<Home />);
+    await screen.findByRole("heading", {
+      name: "Nos réalisations",
+    });
+  });
+  it("a list a people is displayed", async () => {
+    render(<Home />);
+    await screen.findByRole("heading", {
+      name: "Notre équipe",
+    });
+    await screen.findByText(
+      "Une équipe d’experts dédiés à l’ogranisation de vos événements"
+    );
+  });
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    await screen.findByText("Notre derniére prestation");
+    await screen.findByText("Contactez-nous");
+  });
   it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+    render(<Home />);
+
+    // Vérifie la présence de la carte d'événement dans le footer
+    const lastEventCard = screen.getByTestId("card-testid");
+    expect(lastEventCard).toBeInTheDocument();
+
+    // Vérifie que le titre est bien celui du dernier événement
+    const lastEventTitle = screen.getByText("Conférence #productCON");
+    expect(lastEventTitle).toBeInTheDocument();
+  });
 });
