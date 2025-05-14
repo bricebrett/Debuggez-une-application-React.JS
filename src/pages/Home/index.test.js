@@ -50,11 +50,9 @@ describe("When a page is created", () => {
   it("an event card, with the last event, is displayed", () => {
     render(<Home />);
 
-    // Vérifie la présence de la carte d'événement dans le footer
     const lastEventCard = screen.getByTestId("card-testid");
     expect(lastEventCard).toBeInTheDocument();
 
-    // Vérifie que le titre est bien celui du dernier événement
     const lastEventTitle = screen.getByText("Conférence #productCON");
     expect(lastEventTitle).toBeInTheDocument();
   });
